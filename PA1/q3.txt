@@ -1,0 +1,7 @@
+The time complexity of Q1 is O(N).
+The reason is that since both arrays must be the same length the for loop in the function will always run only n iterations in the worst case.
+This exludes the error handler that prints out the error using System.out.println(), which runs at O(N^2)...
+
+The time complexity of Q2 is O(N).
+Technically the runtime is O(N+N), since we are iterating over two arrays that can have N sized sizes,
+but O(N+N) = O(2N) = O(N) (not gonna prove that here, but I've taken 360C already), so the runtime is O(N).
