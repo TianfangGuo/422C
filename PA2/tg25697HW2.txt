@@ -1,0 +1,32 @@
+Question 1:
+
+a)  16 sec = C * log(2^10)
+         C = 1.6
+     ? sec = 1.6 * log(2^24)
+           = 1.6 * 24
+    estimate around 38.4 sec
+
+b)  16 sec = C * (2^10)^2(log(2^10))
+           = C * 2^11 * 10
+         C = 0.00078125
+     ? sec = C * (2^24)^2(log(2^24))
+           = C * 2^25 * 24
+    estimate around 624,145.6
+
+Questions 2:
+
+a)  1
+    1
+    1
+    log(n)+1
+    log(n)
+    log(n)
+    log(n)
+    (n+1)log(n)
+    nlog(n)
+    nlog(n)
+    nlog(n)
+
+b)  
+
+
