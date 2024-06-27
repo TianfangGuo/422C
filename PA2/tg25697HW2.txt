@@ -29,4 +29,4 @@ a)  1
 
 b)  
 
-8log(n) - 7log(n) + 4
+4log(n) + 4nlog(n) - 7log(n) + 4
