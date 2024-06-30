@@ -2,7 +2,6 @@
 //swaps their entire contents. Assume that the two arrays are the same length.
 
 import java.util.Arrays;
-
 public class Q1{
     
     public static void swapAll(int[] a1, int[] a2) {
