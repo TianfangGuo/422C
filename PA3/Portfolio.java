@@ -59,6 +59,7 @@ public class Portfolio{
         }   
         else{
             System.out.println("invalid account detected, must pass in 'S' or 'C'");
+            return -1;
         }
     }
 }
