@@ -59,10 +59,20 @@ public class RedBlackTree {
     //|RBT Attributes                                                    
     //======================================================================
     private Node root;
+    private Node null_leaf;
 
     //======================================================================
     //|RBT Methods                                                 
     //======================================================================
+    public RedBlackTree(){
+        this.null_leaf = new Node();
+        this.null_leaf.data = -1;
+        this.null_leaf.color = BLACK;
+        this.null_leaf.left = this.null_leaf;
+        this.null_leaf.right = this.null_leaf;
+        root = this.null_leaf;
+    }
+
     //Override toString so that it actually prints
     @Override
     public String toString() {
@@ -72,16 +82,23 @@ public class RedBlackTree {
     }
 
     private void inOrderTraversal(Node node, StringBuilder sb) {
-        if(node != null){
+        if(node != this.null_leaf){
             sb.append(node.data);
             sb.append(" ");
-            sb.append(node.left);
+            try{sb.append(node.left.data);}
+            catch(Exception e){sb.append("null");}
             sb.append(" ");
-            sb.append(node.right);
+            try{sb.append(node.right.data);}
+            catch(Exception e){sb.append("null");}
             sb.append(" ");
-            sb.append(node.parent);
+            try{sb.append(node.parent.data);}
+            catch(Exception e){sb.append("null");}
             sb.append(" ");
-            sb.append(node.color);
+            if(node.color == BLACK)
+                sb.append("BLACK");
+            else{
+                sb.append("RED");
+            }
             sb.append(" \n");
             inOrderTraversal(node.left, sb);
             inOrderTraversal(node.right, sb);
@@ -96,13 +113,13 @@ public class RedBlackTree {
     public void add(Comparable obj) {
         Node newNode = new Node();
         newNode.data = obj;
-        newNode.left = null;
-        newNode.right = null;
+        newNode.left = this.null_leaf;
+        newNode.right = this.null_leaf;
         newNode.parent = null;
         newNode.color = RED;
         //identify the correct parent of the new node
         Node currentNode = this.root;
-        while(currentNode != null){
+        while(currentNode != this.null_leaf){
             newNode.parent = currentNode;
             if(newNode.data.compareTo(currentNode.data) == -1){
                 currentNode = currentNode.left;
@@ -175,10 +192,10 @@ public class RedBlackTree {
     private void fixAfterAdd(Node newNode) {
         while((newNode != this.root) && (newNode.parent.color == RED)){
             if(newNode.parent == newNode.parent.parent.left){
-                Node temp = newNode.parent.parent.right;
-                if(temp.color == RED){
+                Node uncle = newNode.parent.parent.right;
+                if(uncle.color == RED){
                     newNode.parent.color = BLACK;
-                    temp.color = BLACK;
+                    uncle.color = BLACK;
                     newNode.parent.parent.color = RED;
                     newNode = newNode.parent.parent;
                 }
@@ -193,10 +210,10 @@ public class RedBlackTree {
                 }
             }
             else{
-                Node temp = newNode.parent.parent.left;
-                if(temp.color == RED){
+                Node uncle = newNode.parent.parent.left;
+                if(uncle.color == RED){
                     newNode.parent.color = BLACK;
-                    temp.color = BLACK;
+                    uncle.color = BLACK;
                     newNode.parent.parent.color = RED;
                     newNode = newNode.parent.parent;
                 }
@@ -226,7 +243,7 @@ public class RedBlackTree {
     //Need to Create rotate functions to fix the double reds
     private void rotateLeft(Node node) {
         node.right = node.right.left;
-        if(node.right.left != null){
+        if(node.right.left != this.null_leaf){
             node.right.left.parent = node;
         }
         node.right.parent = node.parent;
@@ -245,7 +262,7 @@ public class RedBlackTree {
 
     private void rotateRight(Node node) {
         node.left = node.left.right;
-        if(node.left.right != null){
+        if(node.left.right != this.null_leaf){
             node.left.right.parent = node;
         }
         node.left.parent = node.parent;
@@ -266,10 +283,16 @@ public class RedBlackTree {
     {
         RedBlackTree t = new RedBlackTree();
         t.add(1);
+        System.out.println(t.toString());
         t.add(2);
+        System.out.println(t.toString());
         t.add(3);
-        // t.add("d");
-        // t.add("E");
+        System.out.println(t.toString());
+        t.add(4);
+        System.out.println(t.toString());
+        t.add(5);
+        System.out.println(t.toString());
+        t.add(6);
         System.out.println(t.toString());
     }
 
