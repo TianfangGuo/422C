@@ -75,6 +75,14 @@ public class RedBlackTree {
         if(node != null){
             sb.append(node.data);
             sb.append(" ");
+            sb.append(node.left);
+            sb.append(" ");
+            sb.append(node.right);
+            sb.append(" ");
+            sb.append(node.parent);
+            sb.append(" ");
+            sb.append(node.color);
+            sb.append(" \n");
             inOrderTraversal(node.left, sb);
             inOrderTraversal(node.right, sb);
         }
@@ -90,32 +98,37 @@ public class RedBlackTree {
         newNode.data = obj;
         newNode.left = null;
         newNode.right = null;
+        newNode.parent = null;
         newNode.color = RED;
-        if (root == null) { root = newNode; }
-        else { 
-            //identify the correct parent of the new node
-            Node currentNode = this.root;
-            while(currentNode != null){
-                newNode.parent = currentNode;
-                if(newNode.data.compareTo(currentNode.data) == -1){
-                    currentNode = currentNode.left;
-                }
-                else{
-                    currentNode = currentNode.right;
-                }
-            }
-            
-            //identify which side the new node should be on
-            if(newNode.data.compareTo(newNode.parent.data) == -1){
-                newNode.parent.left = newNode;
+        //identify the correct parent of the new node
+        Node currentNode = this.root;
+        while(currentNode != null){
+            newNode.parent = currentNode;
+            if(newNode.data.compareTo(currentNode.data) == -1){
+                currentNode = currentNode.left;
             }
             else{
-                newNode.parent.right = newNode;
+                currentNode = currentNode.right;
             }
-
-            //color?
-
         }
+
+        if (newNode.parent == null) { root = newNode; }
+        //identify which side the new node should be on
+        else if(newNode.data.compareTo(newNode.parent.data) == -1){
+            newNode.parent.left = newNode;
+        }
+        else{
+            newNode.parent.right = newNode;
+        }
+
+        if(newNode.parent == null){
+            newNode.color = BLACK;
+            return;
+        }
+        if(newNode.parent.parent == null){
+            return;
+        }
+
         fixAfterAdd(newNode);
     }
 
@@ -254,7 +267,7 @@ public class RedBlackTree {
         RedBlackTree t = new RedBlackTree();
         t.add(1);
         t.add(2);
-//        t.add(3);
+        t.add(3);
         // t.add("d");
         // t.add("E");
         System.out.println(t.toString());
