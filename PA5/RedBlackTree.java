@@ -145,7 +145,7 @@ public class RedBlackTree {
         if(newNode.parent.parent == null){
             return;
         }
-
+        //System.out.println(newNode.data + "->" + newNode.parent.data);
         fixAfterAdd(newNode);
     }
 
@@ -193,6 +193,7 @@ public class RedBlackTree {
         while((newNode != this.root) && (newNode.parent.color == RED)){
             if(newNode.parent == newNode.parent.parent.left){
                 Node uncle = newNode.parent.parent.right;
+                //System.out.println("right uncle");
                 if(uncle.color == RED){
                     newNode.parent.color = BLACK;
                     uncle.color = BLACK;
@@ -211,6 +212,7 @@ public class RedBlackTree {
             }
             else{
                 Node uncle = newNode.parent.parent.left;
+                //System.out.println("left uncle");
                 if(uncle.color == RED){
                     newNode.parent.color = BLACK;
                     uncle.color = BLACK;
@@ -218,6 +220,7 @@ public class RedBlackTree {
                     newNode = newNode.parent.parent;
                 }
                 else{
+                    //System.out.println("uncle is black");
                     if(newNode == newNode.parent.left){
                         newNode = newNode.parent;
                         rotateRight(newNode);
@@ -242,57 +245,75 @@ public class RedBlackTree {
 
     //Need to Create rotate functions to fix the double reds
     private void rotateLeft(Node node) {
-        node.right = node.right.left;
-        if(node.right.left != this.null_leaf){
-            node.right.left.parent = node;
+        Node temp = node.right;
+        node.right = temp.left;
+        if(temp.left != this.null_leaf){
+            temp.left.parent = node;
         }
-        node.right.parent = node.parent;
+        temp.parent = node.parent;
         if(node.parent == null){
-            this.root = node.right;
+            this.root = temp;
         }
         else if(node == node.parent.left){
-            node.parent.left = node.right;
+            node.parent.left = temp;
         }
         else{
-            node.parent.right = node.right;
+            node.parent.right = temp;
         }
-        node.right.left = node;
-        node.parent = node.right;
+        temp.left = node;
+        node.parent = temp;
     }
 
     private void rotateRight(Node node) {
-        node.left = node.left.right;
-        if(node.left.right != this.null_leaf){
-            node.left.right.parent = node;
+        Node temp = node.left;
+        node.left = temp.right;
+        if(temp.right != this.null_leaf){
+            temp.right.parent = node;
         }
-        node.left.parent = node.parent;
+        temp.parent = node.parent;
         if(node.parent == null){
-            this.root = node.left;
+            this.root = temp;
         }
         else if(node == node.parent.right){
-            node.parent.right = node.left;
+            node.parent.right = temp;
         }
         else{
-            node.parent.left = node.left;
+            node.parent.left = temp;
         }
-        node.left.right = node;
-        node.parent = node.left;
+        temp.right = node;
+        node.parent = temp;
     }
 
     public static void testFromBook()
     {
         RedBlackTree t = new RedBlackTree();
-        t.add(1);
-        System.out.println(t.toString());
-        t.add(2);
-        System.out.println(t.toString());
-        t.add(3);
-        System.out.println(t.toString());
-        t.add(4);
-        System.out.println(t.toString());
-        t.add(5);
-        System.out.println(t.toString());
+        // t.add(1);
+        // System.out.println(t.toString());
+        // t.add(2);
+        // System.out.println(t.toString());
+        // t.add(3);
+        // System.out.println(t.toString());
+        // t.add(4);
+        // System.out.println(t.toString());
+        // t.add(5);
+        // System.out.println(t.toString());
+        // t.add(6);
+        // System.out.println(t.toString());
+
         t.add(6);
+        t.add(52);
+        t.add(4);
+        t.add(13);
+        t.add(2);
+        t.add(1);
+
+        t.add(66);
+        t.add(5);
+        t.add(40);
+        t.add(3);
+        t.add(21);
+        t.add(131);
+        
         System.out.println(t.toString());
     }
 
