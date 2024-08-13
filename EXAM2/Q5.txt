@@ -1,0 +1,14 @@
+1) 
+final String hostname = "horstmann.com";
+final int port = 80;
+final Socket socket = new Socket(hostname, port);
+
+2)
+InputStream in = socket.getInputStream();
+OutputStream out = socket.getOutputStream();
+
+3)
+try(Socket s = socket){} 
+catch(IOException ioe){
+	ioe.printStackTrac();
+}
